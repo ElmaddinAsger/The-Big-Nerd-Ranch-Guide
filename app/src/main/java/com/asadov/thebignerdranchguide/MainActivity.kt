@@ -1,13 +1,12 @@
 package com.asadov.thebignerdranchguide
 
 import android.os.Bundle
-import android.view.View
+
 import android.widget.Button
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         trueButton = findViewById(R.id.true_button)
         falseButton = findViewById(R.id.false_button)
 
-        trueButton.setOnClickListener { view: View ->
+        trueButton.setOnClickListener {
             // Do something in response to the click here
             Toast.makeText(
                 this,
@@ -30,7 +29,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.LENGTH_LONG).show()
         }
 
-        falseButton.setOnClickListener { view: View ->
+        falseButton.setOnClickListener {
             // Do something in response to the click here
             Toast.makeText(this,
                 R.string.incorrect_toast,
