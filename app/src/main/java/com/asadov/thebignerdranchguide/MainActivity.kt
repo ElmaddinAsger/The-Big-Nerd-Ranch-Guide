@@ -7,12 +7,12 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.asadov.thebignerdranchguide.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var trueButton: Button
-    private lateinit var falseButton: Button
+    private lateinit var binding : ActivityMainBinding
 
     private val questionBank = listOf(
         Question(R.string.question_australia, true),
@@ -27,24 +27,42 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        trueButton = findViewById(R.id.true_button)
-        falseButton = findViewById(R.id.false_button)
 
-        trueButton.setOnClickListener {
+
+
+        binding.trueButton.setOnClickListener {
             // Do something in response to the click here
-            Toast.makeText(
-                this,
-                R.string.correct_toast,
-                Toast.LENGTH_LONG).show()
+            checkAnswer(true)
+        }   
+
+        binding.falseButton.setOnClickListener {
+            // Do something in response to the click here
+            checkAnswer(false)
         }
 
-        falseButton.setOnClickListener {
-            // Do something in response to the click here
-            Toast.makeText(this,
-                R.string.incorrect_toast,
-                Toast.LENGTH_LONG).show()
+        updateQuestion()
+
+
+    }
+
+    private fun updateQuestion() {
+        val questionTextResId = questionBank[currentIndex].textResId
+        binding.questionTextView.setText(questionTextResId)
+    }
+
+    private fun checkAnswer(userAnswer: Boolean) {
+        val correctAnswer = questionBank[currentIndex].answer
+
+        val messageResId = if (userAnswer == correctAnswer) {
+            R.string.correct_toast
+        } else {
+            R.string.incorrect_toast
         }
+
+        Toast.makeText(this, messageResId, Toast.LENGTH_SHORT)
+            .show()
     }
 }
